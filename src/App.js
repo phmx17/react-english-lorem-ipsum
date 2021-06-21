@@ -7,6 +7,15 @@ function App() {
   
   const handleSubmit = (e) => {
     e.preventDefault()
+    // always copy state vars to local for processing
+    let amount = parseInt(count)  // react auto converts to string; pain
+    if (amount < 0) {
+      amount = 1
+    }
+    if (amount > data.length) {
+      amount = data.length  // limit to data length
+    }    
+    setText(data.slice(0, amount))  // returns new array from 0 to amount
   }
   return (
   <section className="section=center">
@@ -19,8 +28,9 @@ function App() {
       <button type="submit" className="btn">Generate</button>
     </form>
     <article className="lorem-text">
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, voluptates.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, optio.</p>
+      {text.map((item, index)=> {
+        return <p key={index}>{item}</p>
+      })}
     </article>
   </section>
     )
